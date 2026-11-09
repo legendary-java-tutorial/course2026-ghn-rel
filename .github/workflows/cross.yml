@@ -6,7 +6,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - name: clone other repo with GITHUB_TOKEN
+      - name: clone other repo with fine-grained token from Secrets
         run: |
           git clone "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository_owner }}/course2026-ghn-pages.git" other
           cd other
@@ -17,4 +17,4 @@ jobs:
           git commit -m "chore: робот"
           git push
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.CROSS_TOKEN }}
