@@ -1,0 +1,20 @@
+name: cross
+on: workflow_dispatch
+jobs:
+  cross:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: clone other repo with GITHUB_TOKEN
+        run: |
+          git clone "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository_owner }}/course2026-ghn-pages.git" other
+          cd other
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          echo "$(date -u)" > robot.txt
+          git add robot.txt
+          git commit -m "chore: робот"
+          git push
+        env:
+          GH_TOKEN: ${{ github.token }}
